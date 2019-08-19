@@ -26,10 +26,8 @@ namespace TestFrameworkProject
         private IWebElement _dontPublishName;
         [FindsBy(How = How.XPath, Using = "//div[@class='button-container']/button[text()='Submit']")]
         private IWebElement _submitButton;
-        [FindsBy(How = How.XPath, Using = "//div[@class='input-error-message'][text()='Name can\'t be blank']")]
-        private IWebElement _errorMessageFillYourName;
-        [FindsBy(How = How.XPath, Using = "//div[@class='input-error-message'][text()='Email address can\'t be blank']")]
-        private IWebElement _errorMessageFillYourEmail;
+        [FindsBy(How = How.XPath, Using = "//div[@class='input-error-message']")]
+        private IWebElement _errorMessage;
 
         public HaveYourSayPage(IWebDriver driver)
         {
@@ -48,13 +46,13 @@ namespace TestFrameworkProject
         public void VerifyMissingNameError()
         {
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-            Assert.AreEqual("Name can\'t be blank", _errorMessageFillYourName);
+            Assert.AreEqual("Name can\'t be blank", _errorMessage.Text);
         }
 
         public void VerifyMissingEmailError()
         {
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-            Assert.AreEqual("Email address can\'t be blank", _errorMessageFillYourEmail);
+            Assert.AreEqual("Email address can\'t be blank", _errorMessage.Text);
         }
 
         public void Fillform(Dictionary<string, string> val, bool submit, string generatedText)
