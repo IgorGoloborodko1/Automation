@@ -45,6 +45,18 @@ namespace TestFrameworkProject
             screenshot.GetScreenshot().SaveAsFile("screen", ScreenshotImageFormat.Png);
         }
 
+        public void VerifyMissingNameError()
+        {
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            Assert.AreEqual("Name can\'t be blank", _errorMessageFillYourName);
+        }
+
+        public void VerifyMissingEmailError()
+        {
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            Assert.AreEqual("Email address can\'t be blank", _errorMessageFillYourEmail);
+        }
+
         public void Fillform(Dictionary<string, string> val, bool submit, string generatedText)
         {
             _textArea.Click();
@@ -81,8 +93,6 @@ namespace TestFrameworkProject
             else
             {
                 _submitButton.Click();
-                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-                Assert.AreEqual( "Name can\'t be blank", _errorMessageFillYourEmail);
             }
         }
     }

@@ -18,6 +18,7 @@ namespace TestFrameworkProject
         private SearchResultsPage _searchResultsPage;
         private Dictionary<string, string> _values = new Dictionary<string, string>();
         private Dictionary<string, string> _valuesMissingName = new Dictionary<string, string>();
+        private Dictionary<string, string> _valuesMissingEmail = new Dictionary<string, string>();
         [TestInitialize]
         public void TestInitialize()
         {
@@ -34,7 +35,9 @@ namespace TestFrameworkProject
             _valuesMissingName.Add("email", "ig@ukr.net");
             _valuesMissingName.Add("age", "88");
             _valuesMissingName.Add("postalCode", "12222");
-
+            _valuesMissingEmail.Add("name", "Igor");
+            _valuesMissingEmail.Add("postalCode", "02099");
+            _valuesMissingEmail.Add("age", "16");
         }
         #endregion
         [TestMethod]
@@ -78,16 +81,16 @@ namespace TestFrameworkProject
             _homePage.Navi();
             _newsPage.GoToHaveYourSayPage();
             _haveYourSayPage.Fillform(_valuesMissingName, true, loremText);
+            _haveYourSayPage.VerifyMissingNameError();
         }
         [TestMethod]
         public void SubmitQuestionWithoutEmail()
         {
-            //unfortunately didn't find proper way to verify missing email or missing name message
-            //according to some condition
-
             string loremText = _loremIpsumPage.GenerateText(122);
             _homePage.Navi();
             _newsPage.GoToHaveYourSayPage();
+            _haveYourSayPage.Fillform(_valuesMissingEmail, true, loremText);
+            _haveYourSayPage.VerifyMissingEmailError();
         }
         [TestMethod]
         public void ExceedTextAreaLimit()
